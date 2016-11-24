@@ -23,6 +23,7 @@ namespace Exo_HWVoteBot
 		public Main()
 		{
 			InitializeComponent();
+
 			if (windowsStartup.GetValue("Exo's Heroes-WoW Vote Bot") == null)
 				CB_WindowsStartup.Checked = false;
 			else
