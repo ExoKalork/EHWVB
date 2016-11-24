@@ -15,3 +15,9 @@ No installation. Download it, put it in a folder wherever you want, done. I insi
 - Connect on the website on the browser in EHWVB
 - Click enable
 - Enjoy ! (You can minimize the application, it'll stay in the taskbar.)
+
+# TODO
+
+- Remember position and scale
+- Start minimized at Windows Startup
+- Check for updates
