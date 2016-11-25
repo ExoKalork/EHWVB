@@ -36,7 +36,6 @@ namespace Exo_HWVoteBot
 			this.TM_ConnectedCheck = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.qUitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.disconnectMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.TM_VoteCheck = new System.Windows.Forms.Timer(this.components);
 			this.NTI_Main = new System.Windows.Forms.NotifyIcon(this.components);
@@ -89,7 +88,6 @@ namespace Exo_HWVoteBot
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.qUitToolStripMenuItem,
-            this.aboutToolStripMenuItem,
             this.disconnectMeToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
@@ -103,12 +101,6 @@ namespace Exo_HWVoteBot
 			this.qUitToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
 			this.qUitToolStripMenuItem.Text = "Quit";
 			this.qUitToolStripMenuItem.Click += new System.EventHandler(this.qUitToolStripMenuItem_Click);
-			// 
-			// aboutToolStripMenuItem
-			// 
-			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-			this.aboutToolStripMenuItem.Text = "About";
 			// 
 			// disconnectMeToolStripMenuItem
 			// 
@@ -175,7 +167,6 @@ namespace Exo_HWVoteBot
 		private System.Windows.Forms.Timer TM_ConnectedCheck;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem qUitToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem disconnectMeToolStripMenuItem;
 		private System.Windows.Forms.Timer TM_VoteCheck;
 		private System.Windows.Forms.NotifyIcon NTI_Main;

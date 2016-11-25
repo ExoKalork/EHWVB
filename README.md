@@ -21,3 +21,4 @@ No installation. Download it, put it in a folder wherever you want, done. I insi
 - Remember position and scale
 - Start minimized at Windows Startup
 - Check for updates
+- About menu
