@@ -24,23 +24,38 @@ namespace Exo_HWVoteBot
 		{
 			InitializeComponent();
 
-			if (windowsStartup.GetValue("Exo's Heroes-WoW Vote Bot") == null)
+			if (windowsStartup.GetValue("EHWVB /minimized /enabled") == null)
 				CB_WindowsStartup.Checked = false;
 			else
 				CB_WindowsStartup.Checked = true;
 		}
 
-		private void Main_Load(object sender, EventArgs e)
+		private void Main_Shown(object sender, EventArgs e)
 		{
 			LBL_Status.Text = "Loading...";
 
 			((Control)WB_Main).Enabled = false;
 
+			LBL_Status.Text = "Checking for internet connection...";
 			if (CheckInternetConnection("http://www.google.com"))
 			{
+				LBL_Status.Text = "Checking for heroes-wow.com availability...";
 				if (CheckInternetConnection("http://heroes-wow.com/wotlk/"))
 				{
 					ConnectCheck();
+
+					string[] args = Environment.GetCommandLineArgs();
+					foreach (string arg in args)
+					{
+						switch (arg)
+						{
+							case "/minimized":
+								NTI_Main.Visible = true;
+								WindowState = FormWindowState.Minimized;
+								Hide();
+								break;
+						}
+					}
 				}
 				else
 				{
@@ -85,6 +100,8 @@ namespace Exo_HWVoteBot
 						TM_ConnectedCheck.Stop();
 						BT_EnableDisable.Enabled = true;
 						LBL_Status.Text = "Ready !";
+						if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
+							EnableDisable();
 					}
 				}
 				else if (needConnect && WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=loginb")
@@ -94,6 +111,8 @@ namespace Exo_HWVoteBot
 					((Control)WB_Main).Enabled = false;
 					BT_EnableDisable.Enabled = true;
 					LBL_Status.Text = "Ready !";
+					if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
+						EnableDisable();
 				}
 			}
 			else
@@ -161,11 +180,17 @@ namespace Exo_HWVoteBot
 
 		private void TM_ConnectedCheck_Tick(object sender, EventArgs e)
 		{
+			TM_ConnectedCheck.Stop();
+			if (WindowState == FormWindowState.Minimized)
+			{
+				NTI_Main.Visible = false;
+				Show();
+				WindowState = FormWindowState.Normal;
+			}
 			MessageBox.Show("Please connect to Heroes-WoW's website.");
 			LBL_Status.Text = "Waiting for connection...";
 			needConnect = true;
 			((Control)WB_Main).Enabled = true;
-			TM_ConnectedCheck.Stop();
 			WB_Main.Navigate("https://heroes-wow.com/wotlk/index.php?page=login");
 		}
 
@@ -188,6 +213,11 @@ namespace Exo_HWVoteBot
 		}
 
 		private void BT_EnableDisable_Click(object sender, EventArgs e)
+		{
+			EnableDisable();
+		}
+
+		private void EnableDisable()
 		{
 			if (!enabled)
 			{
@@ -273,9 +303,9 @@ namespace Exo_HWVoteBot
 		private void CB_WindowsStartup_CheckedChanged(object sender, EventArgs e)
 		{
 			if (CB_WindowsStartup.Checked)
-				windowsStartup.SetValue("Exo's Heroes-WoW Vote Bot", Application.ExecutablePath);
+				windowsStartup.SetValue("EHWVB /minimized /enabled", Application.ExecutablePath);
 			else
-				windowsStartup.DeleteValue("Exo's Heroes-WoW Vote Bot", false);
+				windowsStartup.DeleteValue("EHWVB /minimized /enabled", false);
 		}
 	}
 }

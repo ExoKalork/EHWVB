@@ -150,7 +150,7 @@ namespace Exo_HWVoteBot
 			this.Name = "Main";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Exo HW Vote Bot";
-			this.Load += new System.EventHandler(this.Main_Load);
+			this.Shown += new System.EventHandler(this.Main_Shown);
 			this.Resize += new System.EventHandler(this.Main_Resize);
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
