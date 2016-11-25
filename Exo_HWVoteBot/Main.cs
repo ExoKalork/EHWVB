@@ -259,22 +259,31 @@ namespace Exo_HWVoteBot
 			LBL_Status.Text = "Checking if I need to vote...";
 			if (File.Exists("LastVote"))
 			{
-				StreamReader reader = new StreamReader("LastVote");
-				string lastVote = reader.ReadLine();
-				if (DateTime.Parse(lastVote).AddHours(12) < DateTime.Now)
-					Vote();
-				else
+				try
 				{
-					LBL_Status.Text = "I don't need to vote. Waiting...";
-					TM_VoteCheck.Start();
+					StreamReader reader = new StreamReader("LastVote");
+					string lastVote = reader.ReadLine();
+					if (DateTime.Parse(lastVote).AddHours(12) < DateTime.Now)
+						Vote();
+					else
+					{
+						LBL_Status.Text = "I don't need to vote. Waiting...";
+						TM_VoteCheck.Start();
+					}
+					reader.Close();
 				}
-				reader.Close();
+				catch
+				{
+					LBL_Status.Text = "LastVote file is corrupted, deleting it...";
+					File.Delete("LastVote");
+					Vote();
+				}
 			}
 			else
 				Vote();
 		}
 
-		void Vote()
+		private void Vote()
 		{
 			LBL_Status.Text = "Voting...";
 			currentSite++;
