@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -14,6 +15,7 @@ namespace Exo_HWVoteBot
 		[DllImport("Kernel32.dll")]
 		static extern int GetLastError();
 
+		Version version = new Version("1.2");
 		RegistryKey windowsStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 		bool enabled = false;
 		bool needConnect = false;
@@ -39,6 +41,24 @@ namespace Exo_HWVoteBot
 			LBL_Status.Text = "Checking for internet connection...";
 			if (CheckInternetConnection("http://www.google.com"))
 			{
+				LBL_Status.Text = "Checking for new version...";
+				WebClient versionDownloader = new WebClient();
+				versionDownloader.DownloadFile("https://raw.githubusercontent.com/ExoKalork/EHWVB/master/version.txt", "version");
+				StreamReader reader = new StreamReader("version");
+				if (Version.Parse(reader.ReadLine()) > version)
+				{
+					DialogResult dialogResult = MessageBox.Show("New version available ! Do you want to download it ?", "EHWVB", MessageBoxButtons.YesNo);
+					if (dialogResult == DialogResult.Yes)
+					{
+						reader.Close();
+						File.Delete("version");
+						Process.Start("https://github.com/ExoKalork/EHWVB/releases");
+						Environment.Exit(0);
+					}
+				}
+				reader.Close();
+				File.Delete("version");
+
 				LBL_Status.Text = "Checking for heroes-wow.com availability...";
 				if (CheckInternetConnection("http://heroes-wow.com/wotlk/"))
 				{
