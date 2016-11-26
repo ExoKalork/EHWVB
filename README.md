@@ -19,5 +19,7 @@ No installation. Download it, put it in a folder wherever you want, done. I insi
 # TODO
 
 - Remember position and scale
-- Start minimized at Windows Startup
 - About menu
+- Multiple accounts
+- Refresh Page button
+- Check if user is online before voting because random disconnecting can apparently happen. (website's fault)
