@@ -20,6 +20,7 @@ namespace Exo_HWVoteBot
 		bool enabled = false;
 		bool needConnect = false;
 		bool disconnecting = false;
+		bool voting = false;
 		int currentSite = 0;
 
 		public Main()
@@ -184,6 +185,7 @@ namespace Exo_HWVoteBot
 							break;
 						case 11:
 							LBL_Status.Text = "Successfully voted !";
+							voting = false;
 							currentSite = 0;
 							if (!File.Exists("LastVote"))
 								File.Create("LastVote").Close();
@@ -249,7 +251,7 @@ namespace Exo_HWVoteBot
 			else
 			{
 				enabled = false;
-				if (currentSite != 0)
+				if (voting)
 					WB_Main.Navigate("https://heroes-wow.com/wotlk/");
 				currentSite = 0;
 				BT_EnableDisable.Text = "Enable";
@@ -306,6 +308,7 @@ namespace Exo_HWVoteBot
 		private void Vote()
 		{
 			LBL_Status.Text = "Voting...";
+			voting = true;
 			currentSite++;
 			if (!InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.xtremetop100.com%2Fout.php%3Fsite%3D1132349385"))
 				MessageBox.Show("An error occurred. Please open a bug report on Github with this error code : " + GetLastError());
@@ -339,7 +342,7 @@ namespace Exo_HWVoteBot
 
 		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (currentSite == 0 && !needConnect)
+			if (!voting && !needConnect)
 				WB_Main.Navigate("https://heroes-wow.com/wotlk/");
 			else
 				MessageBox.Show("Please wait until your current task is done.");
