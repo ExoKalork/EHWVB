@@ -20,6 +20,7 @@ namespace Exo_HWVoteBot
 		bool enabled = false;
 		bool needConnect = false;
 		bool disconnecting = false;
+		bool connectCheck = false;
 		bool voting = false;
 		int currentSite = 0;
 
@@ -93,47 +94,57 @@ namespace Exo_HWVoteBot
 
 		private void ConnectCheck()
 		{
+			connectCheck = true;
 			WB_Main.Navigate("https://heroes-wow.com/wotlk/index.php?page=login");
 			LBL_Status.Text = "Checking if user is online...";
 		}
 
 		private void WB_Main_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
 		{
-			if (!enabled)
+			WB_Main.Stop();
+			if (disconnecting)
 			{
-				if (disconnecting)
+				if (WB_Main.Url.ToString() == "https://heroes-wow.com/")
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/logout.php");
+				else if (WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/")
 				{
-					if (WB_Main.Url.ToString() == "https://heroes-wow.com/")
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/logout.php");
-					else if (WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/")
-					{
-						disconnecting = false;
-						MessageBox.Show("Done !");
-						Environment.Exit(0);
-					}
+					disconnecting = false;
+					MessageBox.Show("Done !");
+					Environment.Exit(0);
 				}
-				else if (!needConnect)
+			}
+			else if (connectCheck)
+			{
+				if (!needConnect)
 				{
 					if (WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=login")
 						TM_ConnectedCheck.Start();
 					else if (WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php" && TM_ConnectedCheck.Enabled)
 					{
+						connectCheck = false;
 						TM_ConnectedCheck.Stop();
 						BT_EnableDisable.Enabled = true;
 						LBL_Status.Text = "Ready !";
-						if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
-							EnableDisable();
+						if (voting)
+							Vote(true);
+						else
+							if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
+								EnableDisable();
 					}
 				}
 				else if (needConnect && WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=loginb")
 				{
+					connectCheck = false;
 					MessageBox.Show("Connection successfull !");
 					needConnect = false;
 					((Control)WB_Main).Enabled = false;
 					BT_EnableDisable.Enabled = true;
 					LBL_Status.Text = "Ready !";
-					if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
-						EnableDisable();
+					if (voting)
+						Vote(true);
+					else
+						if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
+							EnableDisable();
 				}
 			}
 			else
@@ -286,7 +297,7 @@ namespace Exo_HWVoteBot
 					StreamReader reader = new StreamReader("LastVote");
 					string lastVote = reader.ReadLine();
 					if (DateTime.Parse(lastVote).AddHours(12) < DateTime.Now)
-						Vote();
+						Vote(false);
 					else
 					{
 						LBL_Status.Text = "I don't need to vote. Waiting...";
@@ -298,21 +309,28 @@ namespace Exo_HWVoteBot
 				{
 					LBL_Status.Text = "LastVote file is corrupted, deleting it...";
 					File.Delete("LastVote");
-					Vote();
+					Vote(false);
 				}
 			}
 			else
-				Vote();
+				Vote(false);
 		}
 
-		private void Vote()
+		private void Vote(bool online)
 		{
-			LBL_Status.Text = "Voting...";
 			voting = true;
-			currentSite++;
-			if (!InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.xtremetop100.com%2Fout.php%3Fsite%3D1132349385"))
-				MessageBox.Show("An error occurred. Please open a bug report on Github with this error code : " + GetLastError());
-			WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=1");
+			if (!online)
+			{
+				ConnectCheck();
+			}
+			else
+			{
+				LBL_Status.Text = "Voting...";
+				currentSite++;
+				if (!InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.xtremetop100.com%2Fout.php%3Fsite%3D1132349385"))
+					MessageBox.Show("An error occurred. Please open a bug report on Github with this error code : " + GetLastError());
+				WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=1");
+			}
 		}
 
 		private void Main_Resize(object sender, EventArgs e)
