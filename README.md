@@ -23,3 +23,4 @@ No installation. Download it, put it in a folder wherever you want, done. I insi
 - Multiple accounts
 - Refresh Page button
 - Check if user is online before voting because random disconnecting can apparently happen. (website's fault)
+- "/WaitForInternet" argument. Some really quick drives can load EHWVB before internet is loaded.
