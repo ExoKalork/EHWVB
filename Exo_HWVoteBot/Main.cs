@@ -44,21 +44,21 @@ namespace Exo_HWVoteBot
 			{
 				LBL_Status.Text = "Checking for new version...";
 				WebClient versionDownloader = new WebClient();
-				versionDownloader.DownloadFile("https://raw.githubusercontent.com/ExoKalork/EHWVB/master/version.txt", "version");
-				StreamReader reader = new StreamReader("version");
+				versionDownloader.DownloadFile("https://raw.githubusercontent.com/ExoKalork/EHWVB/master/version.txt", @"\version");
+				StreamReader reader = new StreamReader(@"\version");
 				if (Version.Parse(reader.ReadLine()) > version)
 				{
 					DialogResult dialogResult = MessageBox.Show("New version available ! Do you want to download it ?", "EHWVB", MessageBoxButtons.YesNo);
 					if (dialogResult == DialogResult.Yes)
 					{
 						reader.Close();
-						File.Delete("version");
+						File.Delete(@"\version");
 						Process.Start("https://github.com/ExoKalork/EHWVB/releases");
 						Environment.Exit(0);
 					}
 				}
 				reader.Close();
-				File.Delete("version");
+				File.Delete(@"\version");
 
 				LBL_Status.Text = "Checking for heroes-wow.com availability...";
 				if (CheckInternetConnection("http://heroes-wow.com/wotlk/"))
