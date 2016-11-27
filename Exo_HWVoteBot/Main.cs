@@ -336,5 +336,13 @@ namespace Exo_HWVoteBot
 			else
 				windowsStartup.DeleteValue("EHWVB /minimized /enabled", false);
 		}
+
+		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (currentSite == 0 && !needConnect)
+				WB_Main.Navigate("https://heroes-wow.com/wotlk/");
+			else
+				MessageBox.Show("Please wait until your current task is done.");
+		}
 	}
 }

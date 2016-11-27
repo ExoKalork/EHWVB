@@ -40,6 +40,7 @@ namespace Exo_HWVoteBot
 			this.TM_VoteCheck = new System.Windows.Forms.Timer(this.components);
 			this.NTI_Main = new System.Windows.Forms.NotifyIcon(this.components);
 			this.CB_WindowsStartup = new System.Windows.Forms.CheckBox();
+			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -88,6 +89,7 @@ namespace Exo_HWVoteBot
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.qUitToolStripMenuItem,
+            this.refreshToolStripMenuItem,
             this.disconnectMeToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
@@ -134,6 +136,13 @@ namespace Exo_HWVoteBot
 			this.CB_WindowsStartup.UseVisualStyleBackColor = true;
 			this.CB_WindowsStartup.CheckedChanged += new System.EventHandler(this.CB_WindowsStartup_CheckedChanged);
 			// 
+			// refreshToolStripMenuItem
+			// 
+			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+			this.refreshToolStripMenuItem.Text = "Refresh";
+			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,6 +180,7 @@ namespace Exo_HWVoteBot
 		private System.Windows.Forms.Timer TM_VoteCheck;
 		private System.Windows.Forms.NotifyIcon NTI_Main;
 		private System.Windows.Forms.CheckBox CB_WindowsStartup;
+		private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
 	}
 }
 
