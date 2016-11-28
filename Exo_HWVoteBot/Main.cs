@@ -21,7 +21,7 @@ namespace Exo_HWVoteBot
 
 		#region Global Variables
 
-		Version version = new Version("1.2");
+		Version version = new Version("1.3");
 		RegistryKey windowsStartup = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
 		string WSParams = "/minimized /enabled";
 		bool enabled = false;
