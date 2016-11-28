@@ -434,9 +434,6 @@ namespace Exo_HWVoteBot
 			writer.Close();
 		}
 
-
-
-
 		#endregion
 	}
 }
