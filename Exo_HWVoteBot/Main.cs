@@ -61,6 +61,8 @@ namespace Exo_HWVoteBot
 
 		private void Main_Shown(object sender, EventArgs e)
 		{
+			MessageBox.Show(Path.GetTempPath());
+
 			LBL_Status.Text = "Loading...";
 
 			((Control)WB_Main).Enabled = false;
