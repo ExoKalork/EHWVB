@@ -22,7 +22,8 @@ namespace Exo_HWVoteBot
 		#region Global Variables
 
 		Version version = new Version("1.2");
-		RegistryKey windowsStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+		RegistryKey windowsStartup = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+		string WSParams = @"EHWVB /minimized /enabled";
 		bool enabled = false;
 		bool needConnect = false;
 		bool disconnecting = false;
@@ -35,14 +36,20 @@ namespace Exo_HWVoteBot
 		public Main()
 		{
 			InitializeComponent();
+			ChangeWorkingPath();
 			CheckIfWSIsEnabled();
 		}
 
 		#region Windows Startup
 
+		private void ChangeWorkingPath()
+		{
+			var wp = new FileInfo(Application.ExecutablePath);
+			Directory.SetCurrentDirectory(wp.DirectoryName);
+		}
 		private void CheckIfWSIsEnabled()
 		{
-			if (windowsStartup.GetValue("EHWVB /minimized /enabled") == null)
+			if (windowsStartup.GetValue(WSParams) == null)
 				CB_WindowsStartup.Checked = false;
 			else
 				CB_WindowsStartup.Checked = true;
@@ -50,9 +57,9 @@ namespace Exo_HWVoteBot
 		private void CB_WindowsStartup_CheckedChanged(object sender, EventArgs e)
 		{
 			if (CB_WindowsStartup.Checked)
-				windowsStartup.SetValue("EHWVB /minimized /enabled", Application.ExecutablePath);
+				windowsStartup.SetValue(WSParams, Application.ExecutablePath);
 			else
-				windowsStartup.DeleteValue("EHWVB /minimized /enabled", false);
+				windowsStartup.DeleteValue(WSParams, false);
 		}
 
 		#endregion
@@ -64,17 +71,11 @@ namespace Exo_HWVoteBot
 			LBL_Status.Text = "Loading...";
 
 			((Control)WB_Main).Enabled = false;
-			string[] args = Environment.GetCommandLineArgs();
-			foreach (string arg in args)
+			if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/minimized"))
 			{
-				switch (arg)
-				{
-					case "/minimized":
-						NTI_Main.Visible = true;
-						WindowState = FormWindowState.Minimized;
-						Hide();
-						break;
-				}
+				NTI_Main.Visible = true;
+				WindowState = FormWindowState.Minimized;
+				Hide();
 			}
 
 			LBL_Status.Text = "Checking for internet connection...";
@@ -101,35 +102,22 @@ namespace Exo_HWVoteBot
 		}
 		private void CheckForNewVersion()
 		{
-			LBL_Status.Text = "Checking for new version...";
 			WebClient versionDownloader = new WebClient();
-			Log("Starting File download...");
 			versionDownloader.DownloadFile("https://raw.githubusercontent.com/ExoKalork/EHWVB/master/version.txt", "EHWVBVersion.txt");
-			Log("File downlaoded !");
-			Log("Opening File...");
 			StreamReader reader = new StreamReader("EHWVBVersion.txt");
-			Log("File opened !");
 			if (Version.Parse(reader.ReadLine()) > version)
 			{
 				DialogResult dialogResult = MessageBox.Show("New version available ! Do you want to download it ?", "EHWVB", MessageBoxButtons.YesNo);
 				if (dialogResult == DialogResult.Yes)
 				{
-					Log("Closing reader...");
 					reader.Close();
-					Log("Reader closed !");
-					Log("Deleting file...");
 					File.Delete("EHWVBVersion.txt");
-					Log("File deleted !");
 					Process.Start("https://github.com/ExoKalork/EHWVB/releases");
 					Application.Exit();
 				}
 			}
-			Log("2 - Closing reader...");
 			reader.Close();
-			Log("2 - Reader closed !");
-			Log("2 - Deleting file...");
 			File.Delete("EHWVBVersion.txt");
-			Log("2 - File deleted !");
 		}
 
 		#endregion
@@ -304,7 +292,7 @@ namespace Exo_HWVoteBot
 							Vote(true);
 						else
 							if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
-							EnableDisable();
+								EnableDisable();
 					}
 				}
 				else if (needConnect && WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=loginb")
@@ -319,7 +307,7 @@ namespace Exo_HWVoteBot
 						Vote(true);
 					else
 						if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/enabled"))
-						EnableDisable();
+							EnableDisable();
 				}
 			}
 		}
