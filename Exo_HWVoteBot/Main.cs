@@ -90,13 +90,13 @@ namespace Exo_HWVoteBot
 				else
 				{
 					MessageBox.Show("Heroes-WoW's website seems down. Try again later.");
-					Environment.Exit(0);
+					Application.Exit();
 				}
 			}
 			else
 			{
 				MessageBox.Show("You need an active internet connection to use Exo's Vote Bot.");
-				Environment.Exit(0);
+				Application.Exit();
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace Exo_HWVoteBot
 					reader.Close();
 					File.Delete("EHWVBVersion.txt");
 					Process.Start("https://github.com/ExoKalork/EHWVB/releases");
-					Environment.Exit(0);
+					Application.Exit();
 				}
 			}
 			reader.Close();
@@ -139,64 +139,69 @@ namespace Exo_HWVoteBot
 
 		private void VoteProcess()
 		{
-			if (WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=vote")
+			if (enabled && voting && WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=vote")
 			{
 				LBL_Status.Text = "Voted on site " + currentSite;
-				switch (currentSite)
-				{
-					case 1:
-						currentSite++;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.top100arena.com%2Fout.asp%3Fid%3D44752");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=2");
-						break;
-					case 2:
-						currentSite++;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.openwow.com%2Fvisit%3D2125");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=3");
-						break;
-					case 3:
-						currentSite++;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.rpg-paradize.com%2Fsite-Heroes%2BWoW%2B548%2Band%2B335a%2B255%2BLevel-22237");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=4");
-						break;
-					case 4:
-						currentSite++;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Ftopg.org%2Fserver-heroes-wow-id347987");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=5");
-						break;
-					case 5:
-						currentSite++;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.wowstatus.net%2F%7Ewowstatus%2Fserverlist%2Fout%2Fid%2F725206%2Flink%2Fhomepage");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=6");
-						break;
-					case 6:
-						currentSite += 2;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Ftopwow.ru%2Findex.php");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=8");
-						break;
-					case 8:
-						currentSite += 2;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.wowtop.es%2Findex.php");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=10");
-						break;
-					case 10:
-						currentSite++;
-						InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.gowonda.com%2Fserveur-wow-4956-Heroes-WoW-5.4.8-and-3.3.5a-255-Level.htm");
-						WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=11");
-						break;
-					case 11:
-						LBL_Status.Text = "Successfully voted !";
-						voting = false;
-						currentSite = 0;
-						if (!File.Exists("LastVote"))
-							File.Create("LastVote").Close();
-						StreamWriter writer = new StreamWriter("LastVote");
-						writer.Write(DateTime.Now);
-						writer.Close();
-						TM_VoteCheck.Start();
-						WB_Main.Navigate("http://heroes-wow.com/wotlk/");
-						break;
-				}
+				TM_VoteProcess.Start();
+			}
+		}
+		private void TM_VoteProcess_Tick(object sender, EventArgs e)
+		{
+			TM_VoteProcess.Stop();
+			switch (currentSite)
+			{
+				case 1:
+					currentSite++;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.top100arena.com%2Fout.asp%3Fid%3D44752");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=2");
+					break;
+				case 2:
+					currentSite++;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.openwow.com%2Fvisit%3D2125");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=3");
+					break;
+				case 3:
+					currentSite++;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.rpg-paradize.com%2Fsite-Heroes%2BWoW%2B548%2Band%2B335a%2B255%2BLevel-22237");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=4");
+					break;
+				case 4:
+					currentSite++;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Ftopg.org%2Fserver-heroes-wow-id347987");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=5");
+					break;
+				case 5:
+					currentSite++;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.wowstatus.net%2F%7Ewowstatus%2Fserverlist%2Fout%2Fid%2F725206%2Flink%2Fhomepage");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=6");
+					break;
+				case 6:
+					currentSite += 2;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Ftopwow.ru%2Findex.php");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=8");
+					break;
+				case 8:
+					currentSite += 2;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.wowtop.es%2Findex.php");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=10");
+					break;
+				case 10:
+					currentSite++;
+					InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.gowonda.com%2Fserveur-wow-4956-Heroes-WoW-5.4.8-and-3.3.5a-255-Level.htm");
+					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=11");
+					break;
+				case 11:
+					LBL_Status.Text = "Successfully voted !";
+					voting = false;
+					currentSite = 0;
+					if (!File.Exists("LastVote"))
+						File.Create("LastVote").Close();
+					StreamWriter writer = new StreamWriter("LastVote");
+					writer.Write(DateTime.Now);
+					writer.Close();
+					TM_VoteCheck.Start();
+					WB_Main.Navigate("http://heroes-wow.com/wotlk/");
+					break;
 			}
 		}
 		private void EnableDisable()
@@ -347,13 +352,13 @@ namespace Exo_HWVoteBot
 				{
 					disconnecting = false;
 					MessageBox.Show("Done !");
-					Environment.Exit(0);
+					Application.Exit();
 				}
 			}
 		}
 		private void disconnectMeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			if (!enabled)
+			if (!enabled && !connectCheck && !needConnect)
 			{
 				disconnecting = true;
 				WB_Main.Navigate("https://heroes-wow.com/");
@@ -381,7 +386,7 @@ namespace Exo_HWVoteBot
 		}
 		private void qUitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Environment.Exit(0);
+			Application.Exit();
 		}
 		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
 		{

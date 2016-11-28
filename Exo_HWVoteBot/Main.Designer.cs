@@ -36,11 +36,12 @@ namespace Exo_HWVoteBot
 			this.TM_ConnectedCheck = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.qUitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.disconnectMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.TM_VoteCheck = new System.Windows.Forms.Timer(this.components);
 			this.NTI_Main = new System.Windows.Forms.NotifyIcon(this.components);
 			this.CB_WindowsStartup = new System.Windows.Forms.CheckBox();
-			this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.TM_VoteProcess = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -104,6 +105,13 @@ namespace Exo_HWVoteBot
 			this.qUitToolStripMenuItem.Text = "Quit";
 			this.qUitToolStripMenuItem.Click += new System.EventHandler(this.qUitToolStripMenuItem_Click);
 			// 
+			// refreshToolStripMenuItem
+			// 
+			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+			this.refreshToolStripMenuItem.Text = "Refresh";
+			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			// 
 			// disconnectMeToolStripMenuItem
 			// 
 			this.disconnectMeToolStripMenuItem.Name = "disconnectMeToolStripMenuItem";
@@ -136,12 +144,10 @@ namespace Exo_HWVoteBot
 			this.CB_WindowsStartup.UseVisualStyleBackColor = true;
 			this.CB_WindowsStartup.CheckedChanged += new System.EventHandler(this.CB_WindowsStartup_CheckedChanged);
 			// 
-			// refreshToolStripMenuItem
+			// TM_VoteProcess
 			// 
-			this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-			this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
-			this.refreshToolStripMenuItem.Text = "Refresh";
-			this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+			this.TM_VoteProcess.Interval = 1000;
+			this.TM_VoteProcess.Tick += new System.EventHandler(this.TM_VoteProcess_Tick);
 			// 
 			// Main
 			// 
@@ -181,6 +187,7 @@ namespace Exo_HWVoteBot
 		private System.Windows.Forms.NotifyIcon NTI_Main;
 		private System.Windows.Forms.CheckBox CB_WindowsStartup;
 		private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+		private System.Windows.Forms.Timer TM_VoteProcess;
 	}
 }
 
