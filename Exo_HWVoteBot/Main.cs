@@ -379,7 +379,7 @@ namespace Exo_HWVoteBot
 			Show();
 			WindowState = FormWindowState.Normal;
 		}
-		private void qUitToolStripMenuItem_Click(object sender, EventArgs e)
+		private void quitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Application.Exit();
 		}
@@ -389,6 +389,19 @@ namespace Exo_HWVoteBot
 				WB_Main.Navigate("https://heroes-wow.com/wotlk/");
 			else
 				MessageBox.Show("Please wait until your current task is done.");
+		}
+		private void voteNowToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (enabled)
+				Vote(false);
+			else
+				MessageBox.Show("Please click enable first.");
+		}
+		private void openToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			NTI_Main.Visible = false;
+			Show();
+			WindowState = FormWindowState.Normal;
 		}
 
 		#endregion
@@ -420,6 +433,9 @@ namespace Exo_HWVoteBot
 			writer.WriteLine(DateTime.Now + " : " + line);
 			writer.Close();
 		}
+
+
+
 
 		#endregion
 	}
