@@ -61,8 +61,6 @@ namespace Exo_HWVoteBot
 
 		private void Main_Shown(object sender, EventArgs e)
 		{
-			MessageBox.Show(Path.GetTempPath());
-
 			LBL_Status.Text = "Loading...";
 
 			((Control)WB_Main).Enabled = false;
@@ -105,21 +103,33 @@ namespace Exo_HWVoteBot
 		{
 			LBL_Status.Text = "Checking for new version...";
 			WebClient versionDownloader = new WebClient();
+			Log("Starting File download...");
 			versionDownloader.DownloadFile("https://raw.githubusercontent.com/ExoKalork/EHWVB/master/version.txt", "EHWVBVersion.txt");
+			Log("File downlaoded !");
+			Log("Opening File...");
 			StreamReader reader = new StreamReader("EHWVBVersion.txt");
+			Log("File opened !");
 			if (Version.Parse(reader.ReadLine()) > version)
 			{
 				DialogResult dialogResult = MessageBox.Show("New version available ! Do you want to download it ?", "EHWVB", MessageBoxButtons.YesNo);
 				if (dialogResult == DialogResult.Yes)
 				{
+					Log("Closing reader...");
 					reader.Close();
+					Log("Reader closed !");
+					Log("Deleting file...");
 					File.Delete("EHWVBVersion.txt");
+					Log("File deleted !");
 					Process.Start("https://github.com/ExoKalork/EHWVB/releases");
 					Application.Exit();
 				}
 			}
+			Log("2 - Closing reader...");
 			reader.Close();
+			Log("2 - Reader closed !");
+			Log("2 - Deleting file...");
 			File.Delete("EHWVBVersion.txt");
+			Log("2 - File deleted !");
 		}
 
 		#endregion
@@ -413,6 +423,14 @@ namespace Exo_HWVoteBot
 			{
 				return false;
 			}
+		}
+		private void Log(string line)
+		{
+			if (!File.Exists("EHWVB.log"))
+				File.Create("EHWVB.log").Close();
+			StreamWriter writer = new StreamWriter("EHWVB.log", true);
+			writer.WriteLine(DateTime.Now + " : " + line);
+			writer.Close();
 		}
 
 		#endregion
