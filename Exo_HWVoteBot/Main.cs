@@ -23,7 +23,7 @@ namespace Exo_HWVoteBot
 
 		Version version = new Version("1.2");
 		RegistryKey windowsStartup = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-		string WSParams = @"EHWVB /minimized /enabled";
+		string WSParams = "/minimized /enabled";
 		bool enabled = false;
 		bool needConnect = false;
 		bool disconnecting = false;
@@ -49,7 +49,7 @@ namespace Exo_HWVoteBot
 		}
 		private void CheckIfWSIsEnabled()
 		{
-			if (windowsStartup.GetValue(WSParams) == null)
+			if (windowsStartup.GetValue("EHWVB") == null)
 				CB_WindowsStartup.Checked = false;
 			else
 				CB_WindowsStartup.Checked = true;
@@ -57,9 +57,9 @@ namespace Exo_HWVoteBot
 		private void CB_WindowsStartup_CheckedChanged(object sender, EventArgs e)
 		{
 			if (CB_WindowsStartup.Checked)
-				windowsStartup.SetValue(WSParams, Application.ExecutablePath);
+				windowsStartup.SetValue("EHWVB", Application.ExecutablePath + " " + WSParams);
 			else
-				windowsStartup.DeleteValue(WSParams, false);
+				windowsStartup.DeleteValue("EHWVB", false);
 		}
 
 		#endregion
