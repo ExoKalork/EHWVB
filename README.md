@@ -14,7 +14,7 @@ No installation. Download it, put it in a folder wherever you want, done. I insi
 - Wait for it to prompt you to connect
 - Connect on the website on the browser in EHWVB
 - Click enable
-- Enjoy ! (You can minimize the application, it'll stay in the taskbar.)
+- Enjoy ! (You can minimize the application, it'll stay in the taskbar and vote when needed.)
 
 # TODO
 
