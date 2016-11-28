@@ -99,11 +99,6 @@ namespace Exo_HWVoteBot
 				Application.Exit();
 			}
 		}
-
-		#endregion
-
-		#region Version Checking
-
 		private void CheckForNewVersion()
 		{
 			LBL_Status.Text = "Checking for new version...";
