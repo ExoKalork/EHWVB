@@ -6,7 +6,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Exo_HWVoteBot
+namespace EHWVB
 {
 	public partial class Main : Form
 	{

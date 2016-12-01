@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exo_HWVoteBot", "Exo_HWVoteBot\Exo_HWVoteBot.csproj", "{964FB3B1-5CC2-40AA-8116-4B97372FF47B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EHWVB", "EHWVB\EHWVB.csproj", "{964FB3B1-5CC2-40AA-8116-4B97372FF47B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

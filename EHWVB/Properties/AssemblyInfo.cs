@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Exo_HWVoteBot")]
+[assembly: AssemblyTitle("EHWVB")]
 [assembly: AssemblyDescription("Vote Bot for Heroes-WoW.com")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Exorion")]
-[assembly: AssemblyProduct("Exo_HWVoteBot")]
+[assembly: AssemblyProduct("EHWVB")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

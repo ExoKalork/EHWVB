@@ -1,4 +1,4 @@
-namespace Exo_HWVoteBot
+namespace EHWVB
 {
 	partial class Main
 	{
@@ -54,9 +54,9 @@ namespace Exo_HWVoteBot
 			// 
 			// WB_Main
 			// 
-			this.WB_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.WB_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			| System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.WB_Main.Location = new System.Drawing.Point(12, 27);
 			this.WB_Main.MinimumSize = new System.Drawing.Size(20, 20);
 			this.WB_Main.Name = "WB_Main";
@@ -67,8 +67,8 @@ namespace Exo_HWVoteBot
 			// 
 			// BT_EnableDisable
 			// 
-			this.BT_EnableDisable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.BT_EnableDisable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+			| System.Windows.Forms.AnchorStyles.Right)));
 			this.BT_EnableDisable.Enabled = false;
 			this.BT_EnableDisable.Location = new System.Drawing.Point(12, 488);
 			this.BT_EnableDisable.Name = "BT_EnableDisable";
@@ -96,10 +96,10 @@ namespace Exo_HWVoteBot
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.qUitToolStripMenuItem,
-            this.refreshToolStripMenuItem,
-            this.voteNowToolStripMenuItem,
-            this.disconnectMeToolStripMenuItem});
+			this.qUitToolStripMenuItem,
+			this.refreshToolStripMenuItem,
+			this.voteNowToolStripMenuItem,
+			this.disconnectMeToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(1126, 24);
@@ -151,10 +151,10 @@ namespace Exo_HWVoteBot
 			// CMS_NTI
 			// 
 			this.CMS_NTI.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quitToolStripMenuItem1,
-            this.voteNowToolStripMenuItem1,
-            this.toolStripSeparator1,
-            this.openToolStripMenuItem1});
+			this.quitToolStripMenuItem1,
+			this.voteNowToolStripMenuItem1,
+			this.toolStripSeparator1,
+			this.openToolStripMenuItem1});
 			this.CMS_NTI.Name = "CMS_NTI";
 			this.CMS_NTI.Size = new System.Drawing.Size(126, 76);
 			// 

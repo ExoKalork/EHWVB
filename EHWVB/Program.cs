@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Exo_HWVoteBot
+namespace EHWVB
 {
 	static class Program
 	{
