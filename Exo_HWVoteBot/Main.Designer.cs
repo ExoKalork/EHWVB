@@ -41,13 +41,13 @@ namespace Exo_HWVoteBot
 			this.disconnectMeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.TM_VoteCheck = new System.Windows.Forms.Timer(this.components);
 			this.NTI_Main = new System.Windows.Forms.NotifyIcon(this.components);
-			this.CB_WindowsStartup = new System.Windows.Forms.CheckBox();
-			this.TM_VoteProcess = new System.Windows.Forms.Timer(this.components);
 			this.CMS_NTI = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.voteNowToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.CB_WindowsStartup = new System.Windows.Forms.CheckBox();
+			this.TM_VoteProcess = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1.SuspendLayout();
 			this.CMS_NTI.SuspendLayout();
 			this.SuspendLayout();
@@ -148,6 +148,42 @@ namespace Exo_HWVoteBot
 			this.NTI_Main.Text = "Double Click me to open me again.";
 			this.NTI_Main.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NTI_Main_MouseDoubleClick);
 			// 
+			// CMS_NTI
+			// 
+			this.CMS_NTI.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitToolStripMenuItem1,
+            this.voteNowToolStripMenuItem1,
+            this.toolStripSeparator1,
+            this.openToolStripMenuItem1});
+			this.CMS_NTI.Name = "CMS_NTI";
+			this.CMS_NTI.Size = new System.Drawing.Size(126, 76);
+			// 
+			// quitToolStripMenuItem1
+			// 
+			this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
+			this.quitToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+			this.quitToolStripMenuItem1.Text = "Open";
+			this.quitToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
+			// 
+			// voteNowToolStripMenuItem1
+			// 
+			this.voteNowToolStripMenuItem1.Name = "voteNowToolStripMenuItem1";
+			this.voteNowToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+			this.voteNowToolStripMenuItem1.Text = "Vote Now";
+			this.voteNowToolStripMenuItem1.Click += new System.EventHandler(this.voteNowToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(122, 6);
+			// 
+			// openToolStripMenuItem1
+			// 
+			this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
+			this.openToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+			this.openToolStripMenuItem1.Text = "Quit";
+			this.openToolStripMenuItem1.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+			// 
 			// CB_WindowsStartup
 			// 
 			this.CB_WindowsStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -164,42 +200,6 @@ namespace Exo_HWVoteBot
 			// 
 			this.TM_VoteProcess.Interval = 1000;
 			this.TM_VoteProcess.Tick += new System.EventHandler(this.TM_VoteProcess_Tick);
-			// 
-			// CMS_NTI
-			// 
-			this.CMS_NTI.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quitToolStripMenuItem1,
-            this.voteNowToolStripMenuItem1,
-            this.toolStripSeparator1,
-            this.openToolStripMenuItem1});
-			this.CMS_NTI.Name = "CMS_NTI";
-			this.CMS_NTI.Size = new System.Drawing.Size(126, 76);
-			// 
-			// quitToolStripMenuItem1
-			// 
-			this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
-			this.quitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-			this.quitToolStripMenuItem1.Text = "Open";
-			this.quitToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
-			// 
-			// openToolStripMenuItem1
-			// 
-			this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-			this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-			this.openToolStripMenuItem1.Text = "Quit";
-			this.openToolStripMenuItem1.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
-			// 
-			// voteNowToolStripMenuItem1
-			// 
-			this.voteNowToolStripMenuItem1.Name = "voteNowToolStripMenuItem1";
-			this.voteNowToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-			this.voteNowToolStripMenuItem1.Text = "Vote Now";
-			this.voteNowToolStripMenuItem1.Click += new System.EventHandler(this.voteNowToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// Main
 			// 
