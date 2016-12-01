@@ -13,17 +13,27 @@ namespace Exo_HWVoteBot
 		[STAThread]
 		static void Main()
 		{
-			bool first = false;
-			m = new Mutex(true, Application.ProductName.ToString(), out first);
-			if ((first))
+			if (!Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/nsic"))
 			{
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new Main());
-				m.ReleaseMutex();
+				bool first = false;
+				m = new Mutex(true, Application.ProductName.ToString(), out first);
+				if (first)
+				{
+					Start();
+					m.ReleaseMutex();
+				}
+				else
+					MessageBox.Show("EHWVB is already running. Check your notification area, and double click the icon.");
 			}
 			else
-				MessageBox.Show("EHWVB is already running. Check your notification area, and double click the icon.");
+				Start();
+		}
+
+		static void Start()
+		{
+			Application.EnableVisualStyles();
+			Application.SetCompatibleTextRenderingDefault(false);
+			Application.Run(new Main());
 		}
 	}
 }
