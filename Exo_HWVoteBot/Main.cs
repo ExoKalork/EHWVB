@@ -37,6 +37,8 @@ namespace Exo_HWVoteBot
 		{
 			InitializeComponent();
 			ChangeWorkingPath();
+			if (!Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/nonamecheck"))
+				CheckFileName();
 			CheckIfWSIsEnabled();
 		}
 
@@ -66,6 +68,26 @@ namespace Exo_HWVoteBot
 
 		#region Loading
 
+		private void CheckFileName()
+		{
+			string currentName = Process.GetCurrentProcess().ProcessName;
+			if (currentName != "EHWVB")
+			{
+				Log("My name isn't right ! Trying to rename myself...");
+				if (File.Exists(currentName + ".exe"))
+				{
+					if (File.Exists("EHWVB.exe"))
+					{
+						File.Delete("EHWVB.exe");
+						System.Threading.Thread.Sleep(100);
+					}
+					File.Move(currentName + ".exe", "EHWVB.exe");
+					Process.Start("EHWVB.exe", "/nsic");
+					Log("Done ! Launching the new file and closing.");
+					Environment.Exit(0);
+				}
+			}
+		}
 		private void Main_Shown(object sender, EventArgs e)
 		{
 			LBL_Status.Text = "Loading...";
