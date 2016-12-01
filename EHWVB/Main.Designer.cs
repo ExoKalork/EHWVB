@@ -54,25 +54,25 @@ namespace EHWVB
 			// 
 			// WB_Main
 			// 
-			this.WB_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-			| System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.WB_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.WB_Main.Location = new System.Drawing.Point(12, 27);
 			this.WB_Main.MinimumSize = new System.Drawing.Size(20, 20);
 			this.WB_Main.Name = "WB_Main";
 			this.WB_Main.ScriptErrorsSuppressed = true;
-			this.WB_Main.Size = new System.Drawing.Size(1102, 455);
+			this.WB_Main.Size = new System.Drawing.Size(410, 206);
 			this.WB_Main.TabIndex = 0;
 			this.WB_Main.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.WB_Main_DocumentCompleted);
 			// 
 			// BT_EnableDisable
 			// 
-			this.BT_EnableDisable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.BT_EnableDisable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.BT_EnableDisable.Enabled = false;
-			this.BT_EnableDisable.Location = new System.Drawing.Point(12, 488);
+			this.BT_EnableDisable.Location = new System.Drawing.Point(12, 239);
 			this.BT_EnableDisable.Name = "BT_EnableDisable";
-			this.BT_EnableDisable.Size = new System.Drawing.Size(874, 60);
+			this.BT_EnableDisable.Size = new System.Drawing.Size(182, 60);
 			this.BT_EnableDisable.TabIndex = 1;
 			this.BT_EnableDisable.Text = "Enable";
 			this.BT_EnableDisable.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@ namespace EHWVB
 			// LBL_Status
 			// 
 			this.LBL_Status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.LBL_Status.Location = new System.Drawing.Point(892, 488);
+			this.LBL_Status.Location = new System.Drawing.Point(200, 239);
 			this.LBL_Status.Name = "LBL_Status";
 			this.LBL_Status.Size = new System.Drawing.Size(222, 60);
 			this.LBL_Status.TabIndex = 2;
@@ -96,13 +96,13 @@ namespace EHWVB
 			// menuStrip1
 			// 
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.qUitToolStripMenuItem,
-			this.refreshToolStripMenuItem,
-			this.voteNowToolStripMenuItem,
-			this.disconnectMeToolStripMenuItem});
+            this.qUitToolStripMenuItem,
+            this.refreshToolStripMenuItem,
+            this.voteNowToolStripMenuItem,
+            this.disconnectMeToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(1126, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(434, 24);
 			this.menuStrip1.TabIndex = 3;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -151,10 +151,10 @@ namespace EHWVB
 			// CMS_NTI
 			// 
 			this.CMS_NTI.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.quitToolStripMenuItem1,
-			this.voteNowToolStripMenuItem1,
-			this.toolStripSeparator1,
-			this.openToolStripMenuItem1});
+            this.quitToolStripMenuItem1,
+            this.voteNowToolStripMenuItem1,
+            this.toolStripSeparator1,
+            this.openToolStripMenuItem1});
 			this.CMS_NTI.Name = "CMS_NTI";
 			this.CMS_NTI.Size = new System.Drawing.Size(126, 76);
 			// 
@@ -188,7 +188,7 @@ namespace EHWVB
 			// 
 			this.CB_WindowsStartup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.CB_WindowsStartup.AutoSize = true;
-			this.CB_WindowsStartup.Location = new System.Drawing.Point(972, 4);
+			this.CB_WindowsStartup.Location = new System.Drawing.Point(280, 4);
 			this.CB_WindowsStartup.Name = "CB_WindowsStartup";
 			this.CB_WindowsStartup.Size = new System.Drawing.Size(142, 17);
 			this.CB_WindowsStartup.TabIndex = 4;
@@ -205,7 +205,7 @@ namespace EHWVB
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1126, 560);
+			this.ClientSize = new System.Drawing.Size(434, 311);
 			this.Controls.Add(this.CB_WindowsStartup);
 			this.Controls.Add(this.LBL_Status);
 			this.Controls.Add(this.BT_EnableDisable);
@@ -216,7 +216,7 @@ namespace EHWVB
 			this.MinimumSize = new System.Drawing.Size(450, 350);
 			this.Name = "Main";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Exo HW Vote Bot";
+			this.Text = "Exo\'s Heroes-WoW Vote Bot";
 			this.Shown += new System.EventHandler(this.Main_Shown);
 			this.Resize += new System.EventHandler(this.Main_Resize);
 			this.menuStrip1.ResumeLayout(false);
