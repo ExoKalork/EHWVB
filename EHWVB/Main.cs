@@ -55,7 +55,10 @@ namespace EHWVB
 			if (windowsStartup.GetValue("EHWVB") == null)
 				CB_WindowsStartup.Checked = false;
 			else
+			{
+				Log("Startup value in registry exists, switching checkbox.");
 				CB_WindowsStartup.Checked = true;
+			}
 		}
 		private void CB_WindowsStartup_CheckedChanged(object sender, EventArgs e)
 		{
@@ -154,7 +157,7 @@ namespace EHWVB
 			}
 			reader.Close();
 			File.Delete("EHWVBVersion.txt");
-			Log("CheckForNewVersion() done !");
+			Log("Done checking version !");
 		}
 
 		#endregion
