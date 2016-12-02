@@ -107,31 +107,72 @@ namespace EHWVB
 			if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/minimized"))
 				WindowState = FormWindowState.Minimized;
 
-			Log("Checking for internet connection...");
-			LBL_Status.Text = "Checking for internet connection...";
-			if (CheckInternetConnection("http://www.google.com"))
+			if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/WaitForInternet"))
 			{
-				CheckForNewVersion();
-
-				Log("Checking for heroes-wow.com availability...");
-				LBL_Status.Text = "Checking for heroes-wow.com availability...";
-				if (CheckInternetConnection("http://heroes-wow.com/wotlk/"))
-				{
-					ConnectCheck();
-				}
+				if (!CheckInternetConnection(true))
+					TM_WaitForInternet.Start();
 				else
 				{
-					Log("Heroes-WoW's website seems down. Closing.");
-					MessageBox.Show("Heroes-WoW's website seems down. Try again later.");
-					Application.Exit();
+					CheckForNewVersion();
+					ConnectCheck();
 				}
 			}
 			else
 			{
-				Log("No active connection found. Closing.");
-				MessageBox.Show("You need an active internet connection to use Exo's Vote Bot.");
-				Application.Exit();
+				if (CheckInternetConnection())
+				{
+					CheckForNewVersion();
+					ConnectCheck();
+				}
 			}
+		}
+		private bool CheckInternetConnection(bool silent = false)
+		{
+			Log("Checking for internet connection...");
+			LBL_Status.Text = "Checking for internet connection...";
+			if (CheckWebsiteAccess("http://www.google.com"))
+			{
+				Log("Checking for heroes-wow.com availability...");
+				LBL_Status.Text = "Checking for heroes-wow.com availability...";
+				if (CheckWebsiteAccess("http://heroes-wow.com/wotlk/"))
+				{
+					return true;
+				}
+				else
+				{
+					if (!silent)
+					{
+						Log("Heroes-WoW's website seems down. Closing.");
+						MessageBox.Show("Heroes-WoW's website seems down. Try again later.");
+						Application.Exit();
+					}
+					else
+						Log("Heroes-WoW's website seems down. Retrying in 10 seconds.");
+				}
+			}
+			else
+			{
+				if (!silent)
+				{
+					Log("No active connection found. Closing.");
+					MessageBox.Show("You need an active internet connection to use Exo's Vote Bot.");
+					Application.Exit();
+				}
+				else
+					Log("No active connection found. Retrying in 10 seconds.");
+			}
+			return false;
+		}
+		private void TM_WaitForInternet_Tick(object sender, EventArgs e)
+		{
+			TM_WaitForInternet.Stop();
+			if (CheckInternetConnection(true))
+			{
+				CheckForNewVersion();
+				ConnectCheck();
+			}
+			else
+				TM_WaitForInternet.Start();
 		}
 		private void CheckForNewVersion()
 		{
@@ -471,7 +512,7 @@ namespace EHWVB
 
 		#region Tools
 
-		private bool CheckInternetConnection(string url)
+		private bool CheckWebsiteAccess(string url)
 		{
 			try
 			{

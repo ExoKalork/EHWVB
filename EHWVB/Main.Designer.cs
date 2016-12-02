@@ -48,6 +48,7 @@ namespace EHWVB
 			this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.CB_WindowsStartup = new System.Windows.Forms.CheckBox();
 			this.TM_VoteProcess = new System.Windows.Forms.Timer(this.components);
+			this.TM_WaitForInternet = new System.Windows.Forms.Timer(this.components);
 			this.menuStrip1.SuspendLayout();
 			this.CMS_NTI.SuspendLayout();
 			this.SuspendLayout();
@@ -201,6 +202,11 @@ namespace EHWVB
 			this.TM_VoteProcess.Interval = 1000;
 			this.TM_VoteProcess.Tick += new System.EventHandler(this.TM_VoteProcess_Tick);
 			// 
+			// TM_WaitForInternet
+			// 
+			this.TM_WaitForInternet.Interval = 10000;
+			this.TM_WaitForInternet.Tick += new System.EventHandler(this.TM_WaitForInternet_Tick);
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,6 +253,7 @@ namespace EHWVB
 		private System.Windows.Forms.ToolStripMenuItem voteNowToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
+		private System.Windows.Forms.Timer TM_WaitForInternet;
 	}
 }
 
