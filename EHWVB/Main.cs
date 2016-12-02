@@ -30,6 +30,7 @@ namespace EHWVB
 		bool connectCheck = false;
 		bool voting = false;
 		int currentSite = 0;
+		string logFile = "";
 
 		#endregion
 
@@ -491,11 +492,28 @@ namespace EHWVB
 		}
 		private void Log(string line)
 		{
-			if (!File.Exists("EHWVB.log"))
-				File.Create("EHWVB.log").Close();
-			StreamWriter writer = new StreamWriter("EHWVB.log", true);
+			if (logFile == string.Empty)
+				setLogFile();
+			StreamWriter writer = new StreamWriter(@"Logs\" + logFile, true);
 			writer.WriteLine(DateTime.Now + " : " + line);
 			writer.Close();
+		}
+		private void setLogFile()
+		{
+			if (!Directory.Exists("Logs"))
+				Directory.CreateDirectory("Logs");
+			DateTime currentTime = DateTime.Now;
+			if (File.Exists(@"Logs\" + formattedDateTime(currentTime)))
+			{
+				File.Delete(@"Logs\" + formattedDateTime(currentTime));
+				System.Threading.Thread.Sleep(100);
+			}
+			File.Create(@"Logs\" + formattedDateTime(currentTime)).Close();
+			logFile = formattedDateTime(currentTime);
+		}
+		private string formattedDateTime(DateTime value)
+		{
+			return "" + value.Month + "-" + value.Day + "-" + value.Year + " " + value.Hour + "." + value.Minute + "." + value.Second + ".log";
 		}
 
 		#endregion
