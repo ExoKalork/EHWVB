@@ -37,6 +37,7 @@ namespace EHWVB
 		{
 			InitializeComponent();
 			ChangeWorkingPath();
+			Log("Loading...");
 			if (!Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/nonamecheck"))
 				CheckFileName();
 			CheckIfWSIsEnabled();
@@ -59,9 +60,15 @@ namespace EHWVB
 		private void CB_WindowsStartup_CheckedChanged(object sender, EventArgs e)
 		{
 			if (CB_WindowsStartup.Checked)
+			{
+				Log("Adding startup value to registry.");
 				windowsStartup.SetValue("EHWVB", Application.ExecutablePath + " " + WSParams);
+			}
 			else
+			{
+				Log("Removing startup value to registry.");
 				windowsStartup.DeleteValue("EHWVB", false);
+			}
 		}
 
 		#endregion
@@ -100,11 +107,13 @@ namespace EHWVB
 				Hide();
 			}
 
+			Log("Checking for internet connection...");
 			LBL_Status.Text = "Checking for internet connection...";
 			if (CheckInternetConnection("http://www.google.com"))
 			{
 				CheckForNewVersion();
 
+				Log("Checking for heroes-wow.com availability...");
 				LBL_Status.Text = "Checking for heroes-wow.com availability...";
 				if (CheckInternetConnection("http://heroes-wow.com/wotlk/"))
 				{
@@ -112,26 +121,31 @@ namespace EHWVB
 				}
 				else
 				{
+					Log("Heroes-WoW's website seems down. Closing.");
 					MessageBox.Show("Heroes-WoW's website seems down. Try again later.");
 					Application.Exit();
 				}
 			}
 			else
 			{
+				Log("No active connection found. Closing.");
 				MessageBox.Show("You need an active internet connection to use Exo's Vote Bot.");
 				Application.Exit();
 			}
 		}
 		private void CheckForNewVersion()
 		{
+			Log("Checking for new version...");
 			WebClient versionDownloader = new WebClient();
 			versionDownloader.DownloadFile("https://raw.githubusercontent.com/ExoKalork/EHWVB/master/version.txt", "EHWVBVersion.txt");
 			StreamReader reader = new StreamReader("EHWVBVersion.txt");
 			if (Version.Parse(reader.ReadLine()) > version)
 			{
+				Log("New version available ! Prompting user...");
 				DialogResult dialogResult = MessageBox.Show("New version available ! Do you want to download it ?", "EHWVB", MessageBoxButtons.YesNo);
 				if (dialogResult == DialogResult.Yes)
 				{
+					Log("User agreed ! Opening download page.");
 					reader.Close();
 					File.Delete("EHWVBVersion.txt");
 					Process.Start("https://github.com/ExoKalork/EHWVB/releases");
@@ -140,6 +154,7 @@ namespace EHWVB
 			}
 			reader.Close();
 			File.Delete("EHWVBVersion.txt");
+			Log("CheckForNewVersion() done !");
 		}
 
 		#endregion
@@ -158,6 +173,7 @@ namespace EHWVB
 		{
 			if (enabled && voting && WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/index.php?page=vote")
 			{
+				Log("Voted on site " + currentSite);
 				LBL_Status.Text = "Voted on site " + currentSite;
 				TM_VoteProcess.Start();
 			}
@@ -208,6 +224,7 @@ namespace EHWVB
 					WB_Main.Navigate("https://heroes-wow.com/wotlk/execute.php?take=vote&site=11");
 					break;
 				case 11:
+					Log("Successfully voted !");
 					LBL_Status.Text = "Successfully voted !";
 					voting = false;
 					currentSite = 0;
@@ -225,6 +242,7 @@ namespace EHWVB
 		{
 			if (!enabled)
 			{
+				Log("Enabling.");
 				enabled = true;
 				BT_EnableDisable.Text = "Disable";
 				TM_VoteCheck.Interval = 10;
@@ -232,6 +250,7 @@ namespace EHWVB
 			}
 			else
 			{
+				Log("Disabling.");
 				enabled = false;
 				if (voting)
 					WB_Main.Navigate("https://heroes-wow.com/wotlk/");
@@ -249,6 +268,7 @@ namespace EHWVB
 		{
 			TM_VoteCheck.Stop();
 			TM_VoteCheck.Interval = 600000;
+			Log("Checking if I need to vote...");
 			LBL_Status.Text = "Checking if I need to vote...";
 			if (File.Exists("LastVote"))
 			{
@@ -260,6 +280,7 @@ namespace EHWVB
 						Vote(false);
 					else
 					{
+						Log("No need to vote. Waiting.");
 						LBL_Status.Text = "I don't need to vote. Waiting...";
 						TM_VoteCheck.Start();
 					}
@@ -267,8 +288,10 @@ namespace EHWVB
 				}
 				catch
 				{
+					Log("[WARNING] LastVote file is corrupted, deleting it...");
 					LBL_Status.Text = "LastVote file is corrupted, deleting it...";
 					File.Delete("LastVote");
+					Log("Success !");
 					Vote(false);
 				}
 			}
@@ -284,6 +307,7 @@ namespace EHWVB
 			}
 			else
 			{
+				Log("Voting...");
 				LBL_Status.Text = "Voting...";
 				currentSite++;
 				if (!InternetSetCookie("http://heroes-wow.com", "HTTP_REFERER", "http%3A%2F%2Fwww.xtremetop100.com%2Fout.php%3Fsite%3D1132349385"))
@@ -310,6 +334,7 @@ namespace EHWVB
 						TM_ConnectedCheck.Stop();
 						BT_EnableDisable.Enabled = true;
 						LBL_Status.Text = "Ready !";
+						Log("He is ! Ready.");
 						if (voting)
 							Vote(true);
 						else
@@ -337,11 +362,13 @@ namespace EHWVB
 		{
 			connectCheck = true;
 			WB_Main.Navigate("https://heroes-wow.com/wotlk/index.php?page=login");
+			Log("Checking if user is online...");
 			LBL_Status.Text = "Checking if user is online...";
 		}
 		private void TM_ConnectedCheck_Tick(object sender, EventArgs e)
 		{
 			TM_ConnectedCheck.Stop();
+			Log("He isn't. Prompting user to log in.");
 			if (WindowState == FormWindowState.Minimized)
 			{
 				NTI_Main.Visible = false;
@@ -368,6 +395,7 @@ namespace EHWVB
 				else if (WB_Main.Url.ToString() == "https://heroes-wow.com/wotlk/")
 				{
 					disconnecting = false;
+					Log("Done ! Now closing.");
 					MessageBox.Show("Done !");
 					Application.Exit();
 				}
@@ -377,6 +405,7 @@ namespace EHWVB
 		{
 			if (!enabled && !connectCheck && !needConnect)
 			{
+				Log("User wants to be disconnected. Redirecting...");
 				disconnecting = true;
 				WB_Main.Navigate("https://heroes-wow.com/");
 			}
@@ -390,6 +419,7 @@ namespace EHWVB
 		{
 			if (WindowState == FormWindowState.Minimized)
 			{
+				Log("Going minimized !");
 				NTI_Main.Visible = true;
 				NTI_Main.ShowBalloonTip(500);
 				Hide();
@@ -397,30 +427,39 @@ namespace EHWVB
 		}
 		private void NTI_Main_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
+			Log("Double clicked, coming back up !");
 			NTI_Main.Visible = false;
 			Show();
 			WindowState = FormWindowState.Normal;
 		}
 		private void quitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
+			Log("User input to close, closing.");
 			Application.Exit();
 		}
 		private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (!voting && !needConnect)
+			{
+				Log("Refreshing current page.");
 				WB_Main.Navigate("https://heroes-wow.com/wotlk/");
+			}
 			else
 				MessageBox.Show("Please wait until your current task is done.");
 		}
 		private void voteNowToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (enabled)
+			{
+				Log("User input to vote now.");
 				Vote(false);
+			}
 			else
 				MessageBox.Show("Please click enable first.");
 		}
 		private void openToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
+			Log("Right click menu to open clicked, coming back up !");
 			NTI_Main.Visible = false;
 			Show();
 			WindowState = FormWindowState.Normal;
