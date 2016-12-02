@@ -105,11 +105,7 @@ namespace EHWVB
 
 			((Control)WB_Main).Enabled = false;
 			if (Array.Exists(Environment.GetCommandLineArgs(), arg => arg == "/minimized"))
-			{
-				NTI_Main.Visible = true;
 				WindowState = FormWindowState.Minimized;
-				Hide();
-			}
 
 			Log("Checking for internet connection...");
 			LBL_Status.Text = "Checking for internet connection...";
