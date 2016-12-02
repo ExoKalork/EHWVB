@@ -323,8 +323,20 @@ namespace EHWVB
 						Vote(false);
 					else
 					{
-						Log("No need to vote. Waiting.");
-						LBL_Status.Text = "I don't need to vote. Waiting...";
+						string type = " Hours";
+						int nextVote = DateTimeCeil(DateTime.Parse(lastVote).AddHours(12) - DateTime.Now, new TimeSpan(1, 0, 0)).Hour;
+						if (nextVote == 1)
+						{
+							type = " Minutes";
+							nextVote = DateTimeCeil(DateTime.Parse(lastVote).AddHours(12) - DateTime.Now, new TimeSpan(0, 1, 0)).Minute;
+						}
+						if (nextVote == 1)
+						{
+							type = " Secondes";
+							nextVote = DateTimeCeil(DateTime.Parse(lastVote).AddHours(12) - DateTime.Now, new TimeSpan(0, 0, 1)).Second;
+						}
+						Log("No need to vote. Next vote in " + nextVote + type + ". Waiting.");
+						LBL_Status.Text = "I don't need to vote. Next vote in " + nextVote + type + ". Waiting...";
 						TM_VoteCheck.Start();
 					}
 					reader.Close();
@@ -553,6 +565,11 @@ namespace EHWVB
 		private string formattedDateTime(DateTime value)
 		{
 			return "" + value.Month + "-" + value.Day + "-" + value.Year + " " + value.Hour + "." + value.Minute + "." + value.Second + ".log";
+		}
+		private DateTime DateTimeCeil(TimeSpan date, TimeSpan span)
+		{
+			long ticks = (date.Ticks + span.Ticks - 1) / span.Ticks;
+			return new DateTime(ticks * span.Ticks);
 		}
 
 		#endregion
