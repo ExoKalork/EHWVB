@@ -21,4 +21,3 @@ No installation. Download it, put it in a folder wherever you want, done. I insi
 - Remember position and scale
 - About menu
 - Multiple accounts (Website is using IP check.) (No-IP/DynDNS support ?)
-- "/WaitForInternet" argument. Some really quick drives can load EHWVB before internet is loaded.
