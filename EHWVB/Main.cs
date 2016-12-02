@@ -23,7 +23,7 @@ namespace EHWVB
 
 		Version version = new Version("1.3");
 		RegistryKey windowsStartup = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-		string WSParams = "/minimized /enabled";
+		string WSParams = "/minimized /enabled /WaitForInternet";
 		bool enabled = false;
 		bool needConnect = false;
 		bool disconnecting = false;
