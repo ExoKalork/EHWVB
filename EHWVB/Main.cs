@@ -180,11 +180,13 @@ namespace EHWVB
 				Log("Voted on site " + currentSite);
 				LBL_Status.Text = "Voted on site " + currentSite;
 				TM_VoteProcess.Start();
+				WB_Main.AllowNavigation = false;
 			}
 		}
 		private void TM_VoteProcess_Tick(object sender, EventArgs e)
 		{
 			TM_VoteProcess.Stop();
+			WB_Main.AllowNavigation = true;
 			switch (currentSite)
 			{
 				case 1:
